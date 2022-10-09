@@ -9,7 +9,7 @@
             <v-card-text>
                     <v-icon style="color:green">mdi-checkbox-marked-circle</v-icon>Motor elétrico - Setor C</v-card-text>
             <v-card-text>
-                    <v-icon style="color:red">mdi-checkbox-marked-circle</v-icon>Motor elétrico - Setor D</v-card-text>
+                    <v-icon style="color:red">mdi-checkbox-blank-circle</v-icon>Motor elétrico - Setor D</v-card-text>
             </v-card>
         </div>
     </div>
