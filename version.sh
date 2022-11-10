@@ -1,2 +1,2 @@
-sudo docker build .
-tag='mxavier27/tcc-portal' && sudo docker build -t $tag . && sudo docker push $tag
+docker build .
+tag='mxavier27/tcc-eletrica-portal:latest' && docker build -t $tag . && docker push $tag

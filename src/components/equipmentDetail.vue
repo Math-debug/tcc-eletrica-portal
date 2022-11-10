@@ -11,7 +11,13 @@
         </v-card>
         <b-modal id="modal-newUser" title="Novo equipamento" @ok="createEquipments" @cancel="defaultEquipment">
             <v-text-field label="Nome do equipamento" v-model="equipmentName"></v-text-field>
-            <v-select :items="typeList" item-value="id" item-text="name" v-model="type" label="Tipo"></v-select>
+            <v-select
+              :items="typeList"
+              item-value="value"
+              item-text="label"
+              v-model="type"
+              label="Tipo"
+            ></v-select>
             <v-text-field label="Tensäo Nominal" v-model="voltage" type="number"></v-text-field>
             <v-text-field label="Corrente Nominal" v-model="nominalCurrent" type="number"></v-text-field>
             <v-text-field label="Descriçäo" v-model="description"></v-text-field>
@@ -43,7 +49,7 @@ export default {
                 { text: "Descriçäo", filterable: false, value: "description" },
             ],
             equipmentName: "",
-            type: null,
+            type: {},
             typeList: [],
             voltage: null,
             nominalCurrent: null,
@@ -76,8 +82,8 @@ export default {
         equipmentTypeList(list) {
             for (let item in list) {
                 this.typeList.push({
-                    id: list[item],
-                    name: list[item].name,
+                    value: list[item],
+                    label: list[item].name,
                 });
             }
         },

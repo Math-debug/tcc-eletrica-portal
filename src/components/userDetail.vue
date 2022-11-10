@@ -42,7 +42,7 @@
         :items="grupoList"
         item-value="value"
         item-text="label"
-        @input="setGroup"
+        v-model="user.sysUserGroup"
         label="Grupo"
       ></v-select>
     </b-modal>
@@ -93,7 +93,7 @@ export default {
     groupList(list) {
       for (let item in list) {
         this.grupoList.push({
-          value: list[item].idUserGroup,
+          value: list[item],
           label: list[item].groupName,
         });
       }
