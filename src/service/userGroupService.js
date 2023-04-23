@@ -1,10 +1,10 @@
-import axios from '../plugins/axios'
+import { server } from '../plugins/axios'
 
 export default class UserGroupService{
     getGroups(){
-        return axios.get('/usergroup')
+        return server.get('/usergroup')
     }
     createGroup(data){
-        return axios.post('/usergroup',data)
+        return server.post('/usergroup',data)
     }
 }

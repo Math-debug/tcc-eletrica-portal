@@ -1,16 +1,16 @@
-import axios from '../plugins/axios'
+import { server } from '../plugins/axios'
 
 export default class User{
     getUsers(){
-        return axios.get('/user/get')
+        return server.get('/user/get')
     }
     getAllUsers(){
-        return axios.get('/user')
+        return server.get('/user')
     }
     login(body){
-        return axios.post('/user/login',body)
+        return server.post('/user/login',body)
     }
     createUser(body){
-        return axios.post('/user',body)
+        return server.post('/user',body)
     }
 }

@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import axios from 'axios'
 
-const API_URL = "http://" + window.location.hostname + ":9023";
+const SERVER = "http://" + window.location.hostname + ":5555";
 
-export default axios.create({
-  baseURL: API_URL,
+const server = axios.create({
+  baseURL: SERVER,
   headers : headers()
 })
 
@@ -14,6 +14,12 @@ function headers() {
     headers['Authorization'] = 'Bearer ' + localStorage.token
   }
   return headers
+}
+
+
+
+export {
+  server
 }
 
 Vue.prototype.$http = axios

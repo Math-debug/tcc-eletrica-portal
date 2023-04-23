@@ -1,10 +1,10 @@
-import axios from '../plugins/axios'
+import { server } from '../plugins/axios'
 
 export default class equipmentTypeService{
     getAll(){
-        return axios.get('/equipmenttype')
+        return server.get('/equipmenttype')
     }
     create(data){
-        return axios.post('/equipmenttype',data)
+        return server.post('/equipmenttype',data)
     }
 }

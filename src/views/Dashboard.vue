@@ -21,6 +21,9 @@
                     <div v-else-if="tela == 'equipmentTypeDetail'">
                         <equipmentTypeDetail />
                     </div>
+                    <div v-else-if="tela == 'keepAliveDetail'">
+                        <keepAliveDetail />
+                    </div>
                 </div>
             </div>
         </div>
@@ -34,6 +37,7 @@ import userDetail from "../components/userDetail.vue";
 import userGroupDetail from "../components/userGroupDetail.vue";
 import equipmentDetail from "../components/equipmentDetail.vue";
 import equipmentTypeDetail from "../components/equipmentTypeDetail.vue";
+import keepAliveDetail from "../components/keepAliveDetail.vue"
 
 import userService from "../service/userService";
 
@@ -45,7 +49,8 @@ export default {
         userDetail,
         userGroupDetail,
         equipmentDetail,
-        equipmentTypeDetail
+        equipmentTypeDetail,
+        keepAliveDetail
     },
     data() {
         return {
