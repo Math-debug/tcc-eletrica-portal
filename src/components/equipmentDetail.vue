@@ -7,7 +7,38 @@
                     Adicionar
                 </v-btn>
             </v-card-title>
-            <v-data-table :headers="headers" :items="equipmentList" :search="search"></v-data-table>
+            <v-data-table :headers="headers" :items="equipmentList" :search="search">
+                <template v-slot:item="row">
+              <tr>
+                <td>{{row.item.id}}</td>
+                <td>{{row.item.name}}</td>
+                <td>{{row.item.equipmentTypeName}}</td>
+                <td>{{row.item.voltage}}</td>
+                <td>{{row.item.nominalCurrent}}</td>
+                <td>{{row.item.description}}</td>
+                <td v-if="row.item.active">
+                    <v-btn class="mx-2" fab green small style="color: #1f512e;">
+                        On
+                    </v-btn>
+                </td>
+                <td v-else>
+                    <v-btn class="mx-2" fab small style="color: #ff0000;">
+                        Off
+                    </v-btn>
+                </td>
+                <td v-if="row.item.syncronized">
+                    <v-btn class="mx-2" fab green small style="color: #1f512e;" @click="syncronize(row.item)">
+                        On
+                    </v-btn>
+                </td>
+                <td v-else>
+                    <v-btn class="mx-2" fab small style="color: #ff0000;" @click="syncronize(row.item)">
+                        Off
+                    </v-btn>
+                </td>
+              </tr>
+</template>
+            </v-data-table>
         </v-card>
         <b-modal id="modal-newUser" title="Novo equipamento" @ok="createEquipments" @cancel="defaultEquipment">
             <v-text-field label="Nome do equipamento" v-model="equipmentName"></v-text-field>
@@ -21,6 +52,7 @@
             <v-text-field label="Tensäo Nominal" v-model="voltage" type="number"></v-text-field>
             <v-text-field label="Corrente Nominal" v-model="nominalCurrent" type="number"></v-text-field>
             <v-text-field label="Descriçäo" v-model="description"></v-text-field>
+            <v-text-field label="Ip" v-model="ip"></v-text-field>
         </b-modal>
     </div>
 </template>
@@ -47,6 +79,8 @@ export default {
                 { text: "Tensäo", filterable: false, value: "voltage" },
                 { text: "Corrente", filterable: false, value: "nominalCurrent" },
                 { text: "Descriçäo", filterable: false, value: "description" },
+                { text: "Ativo", filterable: true, value: "active" },
+                { text: "Sincronizando", filterable: true, value: "syncronized" },
             ],
             equipmentName: "",
             type: {},
@@ -54,6 +88,7 @@ export default {
             voltage: null,
             nominalCurrent: null,
             description: null,
+            ip: null
         };
     },
     methods: {
@@ -76,6 +111,10 @@ export default {
                     voltage: list[item].voltage,
                     nominalCurrent: list[item].nominalCurrent,
                     description: list[item].description,
+                    active: list[item].active,
+                    syncronized: list[item].syncronized,
+                    ip: list[item].ip,
+                    equipmentType: list[item].equipmentType
                 });
             }
         },
@@ -97,14 +136,27 @@ export default {
                     voltage: this.voltage,
                     nominalCurrent: this.nominalCurrent,
                     description: this.description,
+                    ip: this.ip
                 }).then(() => {
-                    this.$swal("Sucesso", "Grupo inserido com sucesso!", "success");
+                    this.$swal("Sucesso", "Equipamento inserido com sucesso!", "success");
                     this.load();
                 })
                 .catch((e) => {
                     this.$swal("Opss...", "Erro: " + e, "error");
                 });
         },
+
+        syncronize(item){
+            item.syncronized = !item.syncronized
+            new equipmentService().createEquipments(item)
+            .then(() => {
+                    this.$swal("Sucesso", "Equipamento atualizado!", "success");
+                    this.load();
+                })
+                .catch((e) => {
+                    this.$swal("Opss...", "Erro: " + e, "error");
+                });
+        }
     },
 };
 </script>
