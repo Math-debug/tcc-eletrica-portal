@@ -17,32 +17,32 @@
                 <td>{{row.item.nominalCurrent}}</td>
                 <td>{{row.item.description}}</td>
                 <td v-if="row.item.active">
-                    <v-btn class="mx-2" fab green small style="color: #1f512e;">
+                    <v-btn class="mx-2" fab green small style="color: #1f512e;"  v-b-tooltip.hover title="Equipamento ativado">
                         <v-icon>mdi-lan</v-icon>
                     </v-btn>
                 </td>
                 <td v-else>
-                    <v-btn class="mx-2" fab small style="color: #ff0000;">
+                    <v-btn class="mx-2" fab small style="color: #ff0000;"  v-b-tooltip.hover title="Equipamento não ativado">
                         <v-icon>mdi-lan-disconnect</v-icon>
                     </v-btn>
                 </td>
                 <td v-if="row.item.syncronized">
-                    <v-btn class="mx-2" fab green small style="color: #1f512e;" @click="syncronize(row.item)">
+                    <v-btn class="mx-2" fab green small style="color: #1f512e;" v-b-tooltip.hover title="Sincronização ativada" @click="syncronize(row.item)">
                         <v-icon>mdi-sync</v-icon>
                     </v-btn>
                 </td>
                 <td v-else>
-                    <v-btn class="mx-2" fab small style="color: #ff0000;" @click="syncronize(row.item)">
+                    <v-btn class="mx-2" fab small style="color: #ff0000;" v-b-tooltip.hover title="Sincronização desativada" @click="syncronize(row.item)">
                         <v-icon>mdi-sync-alert</v-icon>
                     </v-btn>
                 </td>
                 <td>
-                    <v-btn class="mx-2" fab small v-b-modal.modal-equipConfig @click="loadConfigs(row.item.id)">
+                    <v-btn class="mx-2" fab small v-b-modal.modal-equipConfig v-b-tooltip.hover title="Configurações de detecção de anomalias" @click="loadConfigs(row.item.id)">
                         <v-icon>mdi-cog</v-icon>
                     </v-btn>
                 </td>
                 <td>
-                    <v-btn class="mx-2" fab small v-b-modal.modal-editUser @click="loadEquipment(row.item.id)">
+                    <v-btn class="mx-2" fab small v-b-tooltip.hover title="Editar registro" v-b-modal.modal-editUser @click="loadEquipment(row.item.id)">
                         <v-icon>mdi-pencil</v-icon>
                     </v-btn>
                 </td>

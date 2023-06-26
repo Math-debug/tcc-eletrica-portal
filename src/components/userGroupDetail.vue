@@ -7,10 +7,24 @@
                     Adicionar
                 </v-btn>
             </v-card-title>
-            <v-data-table :headers="headers" :items="grupoList" :search="search"></v-data-table>
+            <v-data-table :headers="headers" :items="grupoList" :search="search">
+                <template v-slot:item="row">
+                    <tr>
+                        <td>{{row.item.groupName}}</td>
+                        <td>
+                            <v-btn class="mx-2" fab small v-b-tooltip.hover title="Editar registro" v-b-modal.modal-edit @click="loadUserGroup(row.item.id)">
+                                <v-icon>mdi-pencil</v-icon>
+                            </v-btn>
+                        </td>
+                    </tr>
+                </template>
+            </v-data-table>
         </v-card>
         <b-modal id="modal-newUser" title="Novo Grupo de usuário" @ok="createGroup" @cancel="defaultGroup">
             <v-text-field label="Grupo de usuario" v-model="groupName"></v-text-field>
+        </b-modal>
+        <b-modal id="modal-edit" title="Editar Grupo de usuário" @ok="updateUserGroup">
+            <v-text-field label="Grupo de usuario" v-model="edit.groupName"></v-text-field>
         </b-modal>
     </div>
 </template>
@@ -33,6 +47,7 @@ export default {
             headers: [
                 { text: "Grupo", filterable: true, value: "grupo" },
             ],
+            edit: {}
         };
     },
     methods: {
@@ -45,7 +60,8 @@ export default {
         groupList(list) {
             for (let item in list) {
                 this.grupoList.push({
-                    grupo: list[item].groupName,
+                    id:  list[item].id,
+                    groupName: list[item].groupName,
                 });
             }
         },
@@ -63,6 +79,20 @@ export default {
                     this.$swal("Opss...", "Erro: " + e, "error");
                 });
         },
+        updateUserGroup(){
+             new userGroupService().createGroup(this.edit).then(() => {
+                    this.$swal("Sucesso", "Grupo atualizado com sucesso!", "success");
+                    this.load();
+                })
+                .catch((e) => {
+                    this.$swal("Opss...", "Erro: " + e, "error");
+                });
+        },
+        loadUserGroup(id){
+             new userGroupService().getById(id).then(data=>{
+                this.edit = data.data
+             })
+        }
     },
 };
 </script>
