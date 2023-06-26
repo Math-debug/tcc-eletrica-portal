@@ -70,9 +70,9 @@ export default {
           action: "equipmentTypeDetail",
         },
         {
-          title: "Relatórios de consumo",
-          icon: "mdi-broadcast",
-          action: "keepAliveDetail",
+          title: "Anomalias",
+          icon: "mdi-alert",
+          action: "anomalyDetail",
         },
       ],
       mini: false,

@@ -21,8 +21,8 @@
                     <div v-else-if="tela == 'equipmentTypeDetail'">
                         <equipmentTypeDetail />
                     </div>
-                    <div v-else-if="tela == 'keepAliveDetail'">
-                        <keepAliveDetail />
+                    <div v-else-if="tela == 'anomalyDetail'">
+                        <anomalyDetail />
                     </div>
                 </div>
             </div>
@@ -37,7 +37,7 @@ import userDetail from "../components/userDetail.vue";
 import userGroupDetail from "../components/userGroupDetail.vue";
 import equipmentDetail from "../components/equipmentDetail.vue";
 import equipmentTypeDetail from "../components/equipmentTypeDetail.vue";
-import keepAliveDetail from "../components/keepAliveDetail.vue"
+import anomalyDetail from "../components/anomalyDetail.vue"
 
 import userService from "../service/userService";
 
@@ -50,7 +50,7 @@ export default {
         userGroupDetail,
         equipmentDetail,
         equipmentTypeDetail,
-        keepAliveDetail
+        anomalyDetail
     },
     data() {
         return {
