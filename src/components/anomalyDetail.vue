@@ -42,20 +42,37 @@
                         <td>{{fortmateDate(row.item.normalizedat)}}</td>
                         <td>{{fortmateDate(row.item.closedat)}}</td>
                         <td>
-                            <v-btn class="mx-2" fab small  v-b-tooltip.hover title="Adicionar ação">
+                            <v-btn class="mx-2" fab small  v-b-tooltip.hover title="Adicionar ação" v-b-modal.modal-action @click="selectAnomaly(row.item)">
                                 <v-icon style="color:black">mdi-plus</v-icon>
+                            </v-btn>
+                        </td>
+                        <td>
+                            <v-btn class="mx-2" fab small  v-b-tooltip.hover title="listar ações" v-b-modal.modal-action-list @click="selectAnomalyList(row.item.anomalyid)">
+                                <v-icon style="color:black">mdi-list-box-outline</v-icon>
                             </v-btn>
                         </td>
                     </tr>
               </template>
             </v-data-table>    
         </v-card>
+        <b-modal id="modal-action" title="Adicionar Ação" @ok="sendAnomalyAction">
+            <v-text-field label="Descrição da ação" v-model="anomalyAction.observation"></v-text-field>
+        </b-modal>
+        <b-modal id="modal-action-list" title="Lista de ações">
+            <v-data-table
+            :headers="headerActions"
+            :items="anomalyActionList"
+            ></v-data-table>
+        </b-modal>
     </div>
 </template>
 
 <script>
 
 import anomalyService from '../service/anomalyService'
+import userService from "../service/userService";
+import anomalyActionService from "../service/anomalyActionService";
+
 
 export default{
 
@@ -82,7 +99,15 @@ export default{
                 {value:"NORMALIZED",label:"NORMALIZADO"},
                 {value:"CLOSED",label:"FECHADO"},
             ],
-            selecionado: 'OPEN'
+            selecionado: 'OPEN',
+            anomalyAction: {},
+            anomaly:{},
+            headerActions: [
+                { text: "Id da ação", value: "actionid"},
+                { text: "Ação", value: "observation"},
+                { text: "Usuário", value: "user.userName"}
+            ],
+            anomalyActionList: []
         }
     },
     methods: {
@@ -118,7 +143,6 @@ export default{
             return numero;
         },
         loadUrgence(urgence){
-            console.log(urgence)
             if(urgence == 'HIGH'){
                 return 'background:#ff6961'
             }else if(urgence == 'MEDIUM'){
@@ -126,6 +150,29 @@ export default{
             }else {
                 return 'background:#90ee90'
             }
+        },
+        sendAnomalyAction(action){
+            action.anomaly = this.anomaly
+            new userService()
+                .getUsers().then(data => {
+                    action.user = data.data
+                    this.anomalyAction = {...this.anomalyAction, anomaly: action.anomaly, user: action.user}
+                    new anomalyActionService().createAnomalyAction(this.anomalyAction).then(()=>{
+                        this.anomalyAction.observation = null
+                        this.$swal("Sucesso", "Ação inserida com sucesso!", "success");
+                    }).catch((e)=>{
+                        this.anomalyAction.observation = null
+                        this.$swal("Opss...", "Erro: " + e, "error");
+                    })
+                })
+        },
+        selectAnomaly(item){
+            this.anomaly = item
+        },
+        selectAnomalyList(id){
+            new anomalyActionService().getAnomalyActionList(id).then(data => {
+                this.anomalyActionList = data.data
+            })
         }
     }
 }
