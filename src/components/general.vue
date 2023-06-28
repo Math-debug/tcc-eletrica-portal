@@ -4,12 +4,9 @@
         <div class="row mt-2">
             <v-card>
                 <v-card-title>Status dos Equipamentos</v-card-title>
-                <v-card-text>
-                    <v-icon style="color:green">mdi-checkbox-marked-circle</v-icon>Motor elétrico - Setor B</v-card-text>
-            <v-card-text>
-                    <v-icon style="color:green">mdi-checkbox-marked-circle</v-icon>Motor elétrico - Setor C</v-card-text>
-            <v-card-text>
-                    <v-icon style="color:red">mdi-checkbox-blank-circle</v-icon>Motor elétrico - Setor D</v-card-text>
+                <v-card-text v-for="item in offlineEquipments">
+                    <v-icon style="color:green" v-if="!item.active" v-b-tooltip.hover title="Equipamento online">mdi-checkbox-marked-circle</v-icon>  
+                    <v-icon v-if="item.active" style="color:red" v-b-tooltip.hover title="Equipamento offline">mdi-checkbox-blank-circle</v-icon>{{item.equipmentid + ' - ' + item.name}}</v-card-text>         
             </v-card>
         </div>
     </div>
@@ -17,6 +14,8 @@
 
 <script>
 import { Line as LineChartGenerator } from 'vue-chartjs/legacy'
+
+import dashboardService from '../service/dashboardService'
 
 import {
     Chart as ChartJS,
@@ -74,28 +73,41 @@ export default {
             default: () => []
         }
     },
+
+    mounted() {
+        this.loadDashboards();
+    },
+
     data() {
         return {
             chartData: {
-                labels: [
-                    'Janeiro',
-                    'Fevereiro',
-                    'Março',
-                    'Abril',
-                    'Maio',
-                    'Junho',
-                    'Julho'
-                ],
+                labels: [],
                 datasets: [{
-                    label: 'Potencia total medida (KW/h)',
+                    label: 'Potencia total medida (KVA/mês)',
                     backgroundColor: '#ff0000',
-                    data: [40, 39, 10, 40, 39, 80, 40]
+                    data: []
                 }]
             },
             chartOptions: {
                 responsive: true,
                 maintainAspectRatio: false
-            }
+            }, 
+            offlineEquipments: {}
+        }
+    },
+
+    methods: {
+        loadDashboards(){
+            new dashboardService().getConsumoMensal().then(data => {
+                this.chartData.labels = data.data.map(x => {return x.mes})
+                this.chartData.datasets[0].data = data.data.map(x => {return x.consumo})
+            })
+            new dashboardService().getOfflineEquipments().then(data=>{
+                this.offlineEquipments = data.data
+            })
+            setTimeout(() => {
+                    loadDashboards()
+                }, 3000);
         }
     }
 }
