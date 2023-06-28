@@ -13,6 +13,9 @@
                 </v-select>
             </v-card-title>
             <v-data-table :headers="headers" :items="anomalyList.filter(list => {
+                if(this.selecionado == null){
+                    return list.statusid != 'CLOSED'
+                }
                 return list.statusid == this.selecionado
             }).map(x => x)" :search="search">
              <template v-slot:item="row">
@@ -94,12 +97,13 @@ export default{
                 { text: "Dt. Fechamento", filterable: true, value:"closedat" },
             ],
             status:[
+                {value:null,label:"TODOS EM ABERTO"},
                 {value:"OPEN",label:"ABERTO"},
                 {value:"TRATED",label:"TRATADO"},
                 {value:"NORMALIZED",label:"NORMALIZADO"},
                 {value:"CLOSED",label:"FECHADO"},
             ],
-            selecionado: 'OPEN',
+            selecionado: null,
             anomalyAction: {},
             anomaly:{},
             headerActions: [
