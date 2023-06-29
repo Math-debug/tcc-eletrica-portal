@@ -6,7 +6,7 @@
                 <v-card-title>Status dos Equipamentos</v-card-title>
                 <v-card-text v-for="item in offlineEquipments">
                     <v-icon style="color:green" v-if="!item.active" v-b-tooltip.hover title="Equipamento online">mdi-checkbox-marked-circle</v-icon>  
-                    <v-icon v-if="item.active" style="color:red" v-b-tooltip.hover title="Equipamento offline">mdi-checkbox-blank-circle</v-icon>{{item.equipmentid + ' - ' + item.name}}</v-card-text>         
+                    <v-icon v-if="item.active" :style="status()" v-b-tooltip.hover title="Equipamento offline">mdi-alert-box</v-icon>{{item.equipmentid + ' - ' + item.name}}</v-card-text>         
             </v-card>
         </div>
     </div>
@@ -92,7 +92,8 @@ export default {
                 responsive: true,
                 maintainAspectRatio: false
             }, 
-            offlineEquipments: {}
+            offlineEquipments: {},
+            color: "color:red"
         }
     },
 
@@ -106,8 +107,21 @@ export default {
                 this.offlineEquipments = data.data
             })
             setTimeout(() => {
-                    loadDashboards()
+                    this.loadDashboards()
                 }, 3000);
+        },
+        status(){
+            if(this.color == 'color:red'){
+                setTimeout(()=>{
+                    this.color = 'color:white'
+                },1000)
+            }
+            if(this.color == 'color:white'){
+                setTimeout(()=>{
+                    this.color = 'color:red'
+                },300)
+            }
+            return this.color;
         }
     }
 }

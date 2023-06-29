@@ -45,8 +45,8 @@ export default {
       drawer: true,
       items: [
         {
-          title: "Geral",
-          icon: "mdi-home-city",
+          title: "Dashboard",
+          icon: "mdi-monitor-dashboard",
           action: null,
         },
         {
@@ -73,6 +73,11 @@ export default {
           title: "Anomalias",
           icon: "mdi-alert",
           action: "anomalyDetail",
+        },
+        {
+          title: "Relatórios",
+          icon: "mdi-chart-bar",
+          action: "reportDetail",
         },
       ],
       mini: false,

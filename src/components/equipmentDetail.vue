@@ -164,7 +164,8 @@ export default {
                     active: list[item].active,
                     syncronized: list[item].syncronized,
                     ip: list[item].ip,
-                    equipmentType: list[item].equipmentType
+                    equipmentType: list[item].equipmentType,
+                    verify: list[item].verify,
                 });
             }
         },
@@ -198,6 +199,9 @@ export default {
 
         syncronize(item){
             item.syncronized = !item.syncronized
+            if(item.verify == null){
+                item.verify = false;
+            }
             new equipmentService().createEquipments(item)
             .then(() => {
                     this.$swal("Sucesso", "Equipamento atualizado!", "success");
@@ -211,7 +215,6 @@ export default {
         loadConfigs(id){
             new equipmentConfigService().getConfigs(id).then(data => {
                 this.configs = data.data
-                console.log(this.configs)
             }).catch(()=>{
                 this.configs = {equipment:{id:id}}
             })
