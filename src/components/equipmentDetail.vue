@@ -167,6 +167,15 @@ export default {
                     equipmentType: list[item].equipmentType,
                     verify: list[item].verify,
                 });
+                this.equipmentList.sort((a, b) => {
+                    if (a.id < b.id) {
+                        return -1;
+                    } else if (a.id > b.id) {
+                        return 1;
+                    } else {
+                        return 0;
+                    }
+                })
             }
         },
         equipmentTypeList(list) {
