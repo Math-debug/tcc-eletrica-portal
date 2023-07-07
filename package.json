@@ -13,6 +13,10 @@
     "bootstrap-vue": "^2.22.0",
     "chart.js": "^3.8.0",
     "core-js": "^3.8.3",
+    "export-to-csv": "^0.2.1",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^2.5.1",
+    "jspdf-html2canvas": "^1.4.9",
     "net": "^1.0.2",
     "sockjs-client": "^1.6.1",
     "stomp-websocket": "^2.3.4-next",
@@ -20,6 +24,7 @@
     "vue-chartjs": "^4.0.0",
     "vue-router": "^3.5.4",
     "vue-sweetalert2": "^5.0.5",
+    "vue-the-mask": "^0.11.1",
     "vuetify": "^2.6.0"
   },
   "devDependencies": {
