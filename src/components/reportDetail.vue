@@ -200,9 +200,9 @@ export default {
         },
         loadAnomaly(type) {
             if (type == 1) {
-                return 'Sobrecarga de corrente'
+                return 'Corrente fora do padrão'
             } else if (type == 2) {
-                return 'Sobrecarga de tensão'
+                return 'Tensão fora do padrão'
             } else if (type == 3) {
                 return 'Falta de fase'
             }
