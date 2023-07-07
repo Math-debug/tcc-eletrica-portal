@@ -26,8 +26,8 @@
             </v-select>
         </b-modal>
         <b-modal ref="modaldata" id="modal-data" title="parâmetro data" @ok="emmitData">
-            <v-text-field label="Data início" v-model="dayStart" v-mask="'##/##/####'" hint="Formato: DD/MM/YYYY"></v-text-field>
-            <v-text-field label="Data fim" v-model="dayEnd" v-mask="'##/##/####'" hint="Formato: DD/MM/YYYY"></v-text-field>
+            <v-text-field label="Data início" v-model="dayStart" hint="Formato: DD/MM/YYYY" type="date"></v-text-field>
+            <v-text-field label="Data fim" v-model="dayEnd" hint="Formato: DD/MM/YYYY" type="date"></v-text-field>
         </b-modal>
         </div>
         <div v-show="exibeReport">
@@ -229,7 +229,7 @@ export default {
         },
         emmitData() {
             if (this.id == 2) {
-                new reportService().generateReport(this.id, this.dayStart + ';' + this.dayEnd).then(data => {
+                new reportService().generateReport(this.id, this.fortmateDateDMY(this.dayStart) + ';' + this.fortmateDateDMY(this.dayEnd)).then(data => {
                     this.itemsReport2 = data.data.map(x => {
                         return {
                             anomalyid: x.anomalyid,
@@ -352,6 +352,19 @@ export default {
 
             // Criando a string formatada
             return dia + "/" + mes + "/" + ano + " " + horas + ":" + minutos + ":" + segundos;
+        },
+        fortmateDateDMY(date) {
+            if (date == null) {
+                return null
+            }
+            const data = new Date(date);
+
+            const dia = this.adicionarZero(data.getUTCDate());
+            const mes = this.adicionarZero(data.getUTCMonth() + 1);
+            const ano = data.getUTCFullYear();
+
+            // Criando a string formatada
+            return dia + "/" + mes + "/" + ano;
         },
         adicionarZero(numero) {
             if (numero < 10) {
