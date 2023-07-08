@@ -41,6 +41,7 @@
                 <div>
                     <v-btn v-if="id == 2" style="background-color:green; color:white" v-show="escondeBotoes" @click="id == 2 ? exportToCsv(generateItemsReport2(), headersReport2):null">Exportar CSV</v-btn>
                 </div> 
+                <br>
                 <div class="p-2 mb-5 mt-3" style="border-style: solid; width: 75%; margin-left: auto; margin-right: auto;">    
                     <strong><p class="p-3 mt-2 mb-2" style="text-align: center;">{{title}}</p></strong>
                 </div>
@@ -68,7 +69,7 @@
                 </v-data-table>
                 <div v-if="id == 3">
                     <div v-for="item in itemsReport3" key="equipmentid">
-                        <strong><p class="mt-3"> Equipamento {{ item.equipmentid }} </p></strong>
+                        <strong><p class="mt-3" style="margin-left: 20%;"> Equipamento {{ item.equipmentid }} </p></strong>
                         <canvas :id="'canva' + item.equipmentid" width="500%" class="canvas" ></canvas>
                     </div>
                 </div>
