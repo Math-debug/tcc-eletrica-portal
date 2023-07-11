@@ -72,8 +72,8 @@
             ></v-checkbox>
             <v-text-field label="Tensäo Máxima" v-model="configs.vmax" type="number"></v-text-field>
             <v-text-field label="Tensäo Mínima" v-model="configs.vmin" type="number"></v-text-field>
-            <v-text-field label="Corrente Máxima" v-model="configs.imin" type="number"></v-text-field>
-            <v-text-field label="Corrente Mínima" v-model="configs.imax" type="number"></v-text-field>
+            <v-text-field label="Corrente Máxima" v-model="configs.imax" type="number"></v-text-field>
+            <v-text-field label="Corrente Mínima" v-model="configs.imin" type="number"></v-text-field>
             <v-select 
             :items="typeNetwork"
             item-value="value"
