@@ -146,9 +146,9 @@ export default {
             }
             const data = new Date(date);
 
-            const dia = this.adicionarZero(data.getUTCDate());
-            const mes = this.adicionarZero(data.getUTCMonth() + 1);
-            const ano = data.getUTCFullYear();
+            const dia = this.adicionarZero(data.getDate());
+            const mes = this.adicionarZero(data.getMonth() + 1);
+            const ano = data.getFullYear();
             const horas = this.adicionarZero(data.getHours());
             const minutos = this.adicionarZero(data.getMinutes());
             const segundos = this.adicionarZero(data.getSeconds());
