@@ -177,6 +177,9 @@ export default {
                             return acc;
                         }, []);
                         this.itemsReport3 = transformedArray;
+                        for(let y in this.charts){
+                            this.charts[y].destroy()
+                        }
                         for (let i in this.itemsReport3) {
                             let label = []
                             let colors = []
@@ -188,9 +191,6 @@ export default {
                                 value.push(response[x].qtd)
                             }
                             setTimeout(() => {
-                                for(let y in this.charts){
-                                    this.charts[y].destroy()
-                                }
                                 let ref = document.getElementById('canva' + this.itemsReport3[i].equipmentid)
                                 this.renderChartBar(label, colors, value, ref)
                             }, 500)
@@ -249,6 +249,7 @@ export default {
                             acoes.push(users[i] + ': ' + acao[i])
                         }
                         this.itemsReport2[x] = { ...this.itemsReport2[x], acoes: acoes }
+                        acoes = []
                     }
                     this.exibeReport = true;
                 })
