@@ -2,7 +2,7 @@ FROM node:latest as build-stage
 
 COPY ./ /app
 WORKDIR /app
-RUN npm install
+RUN yarn install
 RUN npm run build
 
 # production stage

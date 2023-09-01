@@ -83,7 +83,7 @@ export default {
             chartData: {
                 labels: [],
                 datasets: [{
-                    label: 'Potencia total medida (KVA/mês)',
+                    label: 'Potencia total medida (kW/mês)',
                     backgroundColor: '#ff0000',
                     data: []
                 }]
