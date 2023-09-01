@@ -201,11 +201,15 @@ export default {
         },
         loadAnomaly(type) {
             if (type == 1) {
-                return 'Corrente fora do padrão'
+                return 'SobreCarga de corrente'
             } else if (type == 2) {
-                return 'Tensão fora do padrão'
+                return 'SobreCarga de tensão'
             } else if (type == 3) {
                 return 'Falta de fase'
+            }else if (type == 4) {
+                return 'SubCarga de corrente'
+            }else if (type == 5) {
+                return 'SubCarga de tensão'
             }
         },
         emmitMes() {
